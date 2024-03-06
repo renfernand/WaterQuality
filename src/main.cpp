@@ -13,7 +13,8 @@
 #include <DallasTemperature.h>
 
 #define IMPRIME_SERIAL 0
-#define NIVEL_TANQUE_MAX  12   //nivel do tanque para desligar a bomba
+#define NIVEL_TANQUE_MAX  10   //nivel do tanque para desligar a bomba
+#define NIVEL_TANQUE_MIN  13   //nivel do tanque para desligar a bomba
 
 // Structure da mensagem para enviar para ESP32
 #define HEADER_MSG 0xCA
@@ -167,8 +168,9 @@ void loop() {
   sensors.requestTemperatures(); 
   //Serial.println(sensors.getTempCByIndex(0));
   temperature = sensors.getTempCByIndex(0);
+  if ((temperature <0) || (temperature >50))
+     temperature = mydata.temp;
   mydata.temp = temperature;
-
  //================================================
  //leitura sensor de condutividade
 
@@ -264,10 +266,12 @@ void loop() {
     dist_media = dist_tot / dist_count;
     mydata.dist_media = dist_media;
   
-    if (dist_media > NIVEL_TANQUE_MAX) 
-      mydata.bomb_status = 1;
-      else      
+    if (dist_media <= NIVEL_TANQUE_MAX) 
       mydata.bomb_status = 0;
+    else {
+      if (dist_media > NIVEL_TANQUE_MIN)
+         mydata.bomb_status = 1;
+    }      
         
     digitalWrite(Bombapin, mydata.bomb_status);
 
