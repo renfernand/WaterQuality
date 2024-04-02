@@ -16,6 +16,8 @@
 #define NIVEL_TANQUE_MAX  10   //nivel do tanque para desligar a bomba
 #define NIVEL_TANQUE_MIN  13   //nivel do tanque para desligar a bomba
 
+#define RFF  //teste github
+
 // Structure da mensagem para enviar para ESP32
 #define HEADER_MSG 0xCA
 #define FOOTER_MSG 0xFEFE
