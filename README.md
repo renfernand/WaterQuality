@@ -11,3 +11,5 @@ Ele tambem se comunica serialmente com uma placa ESP32 para mostrar os valores d
 Este programa foi feito em uma placa Arduino UNO.
 
 
+Alterei mais um arquivo agora - 16-04-24
+
